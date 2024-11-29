@@ -1,12 +1,17 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import openpyxl
+import os# utiliser pour le chemin d'accès
+
+script_dir = os.path.dirname(__file__)
+data_full_path = os.path.join(script_dir, "Datas/africa_employment_data.xlsx")
 
 
 # Charger les données
 @st.cache
 def load_data():
-    return pd.read_excel("Datas/africa_employment_data.xlsx")
+    return pd.read_excel(data_full_path)
 
 data = load_data()
 
