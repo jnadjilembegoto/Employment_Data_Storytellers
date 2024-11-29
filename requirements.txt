@@ -19,7 +19,7 @@ mdurl==0.1.2
 numpy==2.0.1
 packaging==24.1
 pandas==2.2.2
-
+pillow==10.4.0
 protobuf==5.27.3
 pyarrow==17.0.0
 pydeck==0.9.1
@@ -45,9 +45,5 @@ tzdata==2024.1
 urllib3==2.2.2
 watchdog==4.0.1
 plotly.express
-
-
-streamlit==1.26.0
-pandas==2.1.1
 openpyxl==3.1.2
-pillow==10.4.0
+
