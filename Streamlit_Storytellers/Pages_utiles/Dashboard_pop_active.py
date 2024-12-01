@@ -13,7 +13,7 @@ def dash_pop_active():
     #@st.cache_data
     def load_data():
          data_path=data_dir('base_streamlit_storytellers.xlsx')
-        return pd.read_excel(data_path,sheet_name="Pop_active_Af_pays")
+         return pd.read_excel(data_path,sheet_name="Pop_active_Af_pays")
 
     df_reshaped = load_data()
 
