@@ -21,7 +21,7 @@ def accueil_load():
     st.markdown('Créé par DATA STorytellers Team')
     st.sidebar.markdown('---')
     st.sidebar.markdown("## Base de données utilisée")
-    st.sidebar.markdown("""[*Données appurées*](https://github.com/jnadjilembegoto/Employment_Data_Storytellers)
+    st.sidebar.markdown("""[*Données appurées*](https://github.com/jnadjilembegoto/Employment_Data_Storytellers/blob/d6c88252c3b9b2e5d456dee2bd0bd4cf14289f72/Streamlit_Storytellers/Datas/base_streamlit_storytellers.xlsx)
                         """)
     st.sidebar.markdown('---')
     st.sidebar.markdown("## Scripts de l'application")
