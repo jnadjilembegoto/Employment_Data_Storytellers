@@ -6,6 +6,10 @@ logo_path = main_dir("logo_issea.jpg")
 logo = Image.open(logo_path)
 def accueil_load(): 
     # Titre de l'application
+        # Sidebar
+    with st.sidebar:
+        st.title('🏠 Accueil')
+         
     
     col = st.columns((1.5, 4.5), gap='medium')
     with col[0]:
