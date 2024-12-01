@@ -10,7 +10,7 @@ def about_us_page():
     st.markdown(
         f"""
         ##### AZAPMO TAZO Dylan 
-        - Email:  <>
+        - Email:  <student.dilane.tazo@issea-cemac.org>
         - GitHub: https://
 
         ##### MPOLAH SOH Natacha Flaire
