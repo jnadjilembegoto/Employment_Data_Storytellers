@@ -1,6 +1,6 @@
 import streamlit as st
 from Pages_utiles.About_us  import about_us_page
-from Pages_utiles.Dashboard_pop_active import dash_pop_active
+#from Pages_utiles.Dashboard_pop_active import dash_pop_active
 from Pages_utiles.Accueil import accueil_load
 import altair as alt
 import openpyxl
@@ -78,7 +78,7 @@ page = st.sidebar.selectbox("Aller à :", ["Accueil","Dashboard_pop_active","Abo
 if page == "About Us":
     about_us_page()
 elif page=="Dashboard_pop_active":
-    dash_pop_active()
+    st.write("hello")#dash_pop_active()
 else:
     accueil_load()
 
