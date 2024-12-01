@@ -1,8 +1,8 @@
 import streamlit as st
 from PIL import Image
-from Main import main_dir
+from Photos.photo_link import main_dir
 
-logo_path = main_dir("Photos/logo_issea.jpg")
+logo_path = main_dir("logo_issea.jpg")
 logo = Image.open(logo_path)
 def accueil_load(): 
     # Titre de l'application
