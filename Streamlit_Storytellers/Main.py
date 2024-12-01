@@ -86,5 +86,5 @@ if page == "About Us":
 elif page=="Dashboard_pop_active":
     st.write("hello")#dash_pop_active()
 else:
-    accueil_load()
+    #accueil_load()
 
