@@ -1,6 +1,6 @@
 import streamlit as st
 from PIL import Image
-from Streamlit_Storytellers.Main import
+from Streamlit_Storytellers.Main import main_dir
 logo = Image.open('Photos/logo_issea.jpg')
 def accueil_load(): 
     # Titre de l'application
