@@ -18,7 +18,7 @@ def about_us_page():
         - Linkdin: https://
 
         ##### NADJILEM BEGOTO
-        - Email: <jnadjilembegoto@gmail.com>
+        - Email: <jnadjilembegoto@gmail.com> ou <student.begoto.nadjilem@issea-cemac.org>
         - Linkdin: https://
 
         ##### TEYANBAYE BERTORNGAI Christian
