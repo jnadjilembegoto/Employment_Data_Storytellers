@@ -78,6 +78,5 @@ if page == "About Us":
 elif page=="Dashboard_pop_active":
     dash_pop_active()
 else:
-    st.write("accueil")
     accueil_load()
 
