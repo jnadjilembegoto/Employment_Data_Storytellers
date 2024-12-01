@@ -4,7 +4,7 @@ import streamlit as st
 import pandas as pd
 import altair as alt
 import plotly.express as px
-from Streamlit_Storytellers.Main import main_dir
+from data_link import data_dir
 #######################
 # Page configuration
 def dash_pop_active():
