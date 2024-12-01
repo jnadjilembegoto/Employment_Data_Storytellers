@@ -1,6 +1,6 @@
 import streamlit as st
 from PIL import Image
-from Streamlit_Storytellers.Main import main_dir
+from Main import main_dir
 
 logo_path = main_dir("Photos/logo_issea.jpg")
 logo = Image.open(logo_path)
