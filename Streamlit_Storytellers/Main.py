@@ -76,7 +76,7 @@ page = st.sidebar.selectbox("Aller à :", ["Accueil","Dashboard_pop_active","Abo
 if page == "About Us":
     about_us_page()
 elif page=="Dashboard_pop_active":
-    st.write("hello")#dash_pop_active()
+    dash_pop_active()
 else:
     st.write("accueil")
     accueil_load()
