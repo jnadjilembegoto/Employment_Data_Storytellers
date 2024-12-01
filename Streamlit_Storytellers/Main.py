@@ -1,7 +1,7 @@
 import streamlit as st
-from Streamlit_Storytellers.Pages_utiles.About_us  import about_us_page
-from Streamlit_Storytellers.Pages_utiles.Dashboard_pop_active import dash_pop_active
-from Streamlit_Storytellers.Pages_utiles.Accueil import accueil_load
+from Pages_utiles.About_us  import about_us_page
+from Pages_utiles.Dashboard_pop_active import dash_pop_active
+from Pages_utiles.Accueil import accueil_load
 import altair as alt
 import openpyxl
 import os# utiliser pour le chemin d'accès
