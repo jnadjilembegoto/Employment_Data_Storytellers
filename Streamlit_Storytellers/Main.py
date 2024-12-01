@@ -1,9 +1,5 @@
 import streamlit as st
-import sys
-from pathlib import Path
 
-# Ajouter le dossier parent au PYTHONPATH
-sys.path.append(str(Path(__file__).parent.resolve()))
 
 from Pages_utiles.About_us  import about_us_page
 #from Streamlit_Storytellers.Pages_utiles.Dashboard_pop_active import dash_pop_active
