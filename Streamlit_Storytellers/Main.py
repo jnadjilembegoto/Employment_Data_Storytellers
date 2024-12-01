@@ -1,6 +1,6 @@
 import streamlit as st
 from Pages_utiles.About_us  import about_us_page
-from ..Pages_utiles.Dashboard_pop_active import dash_pop_active
+from Pages_utiles.Dashboard_pop_active import dash_pop_active
 from Pages_utiles.Accueil import accueil_load
 import altair as alt
 import openpyxl
