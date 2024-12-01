@@ -1,69 +1,82 @@
 import streamlit as st
-import pandas as pd
-import plotly.express as px
+from Pages_utiles.About_us  import about_us_page
+from Pages_utiles.Dashboard_pop_active import dash_pop_active
+from Pages_utiles.Accueil import accueil_load
+import altair as alt
 import openpyxl
 import os# utiliser pour le chemin d'accès
 
-script_dir = os.path.dirname(__file__)
-data_full_path = os.path.join(script_dir, "Datas/africa_employment_data.xlsx")
+main_dir = os.path.dirname(__file__)
+#data_full_path = os.path.join(main_dir, "Datas/africa_employment_data.xlsx")
+#@st.cache
+#def load_data():
+#    return pd.read_excel(data_full_path)
 
+st.set_page_config(
+    page_title="African Employment Dashboard",
+    page_icon="🧑‍💼",
+    layout="wide",
+    initial_sidebar_state="expanded")
 
-# Charger les données
-@st.cache
-def load_data():
-    return pd.read_excel(data_full_path)
+alt.themes.enable("dark")
 
-data = load_data()
-
-# Titre de l'application
-st.title("Analyse Interactive : Emploi et Insertion Professionnelle en Afrique")
+#######################
+# CSS styling
 st.markdown("""
-    Explorez les données sur le marché du travail en Afrique avec des visualisations interactives et des analyses prédictives.
-    Cette application combine des cartes, des graphiques et des modèles prédictifs pour fournir des insights clés.
-""")
+<style>
 
-# Section : Sélecteurs pour filtrer les données
-st.sidebar.header("Filtres")
-year = st.sidebar.slider("Sélectionnez une année :", int(data["Year"].min()), int(data["Year"].max()), 2020)
-countries = st.sidebar.multiselect("Choisissez les pays :", data["Country"].unique())
+[data-testid="block-container"] {
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 0rem;
+    margin-bottom: -7rem;
+}
 
-# Filtrage des données
-filtered_data = data[data["Year"] == year]
-if countries:
-    filtered_data = filtered_data[filtered_data["Country"].isin(countries)]
+[data-testid="stVerticalBlock"] {
+    padding-left: 0rem;
+    padding-right: 0rem;
+}
 
-# Section 1 : Carte interactive (Choropleth)
-st.subheader("Carte Interactive : Taux de Chômage en Afrique")
-fig_map = px.choropleth(
-    data_frame=filtered_data,
-    locations="Country",
-    locationmode="country names",
-    color="Unemployment Rate",
-    title=f"Taux de chômage en {year}",
-    color_continuous_scale="Viridis",
-    labels={"Unemployment Rate": "Taux de chômage (%)"}
-)
-st.plotly_chart(fig_map)
+[data-testid="stMetric"] {
+    background-color: #393939;
+    text-align: center;
+    padding: 15px 0;
+}
 
+[data-testid="stMetricLabel"] {
+display: flex;
+justify-content: center;
+align-items: center;
+}
 
+[data-testid="stMetricDeltaIcon-Up"] {
+    position: relative;
+    left: 38%;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
 
-# Section 3 : Prédiction du Taux de Chômage
-st.subheader("Prédiction du Taux de Chômage")
-st.markdown("""
-    À partir des données historiques, nous prédisons le taux de chômage pour une année donnée en utilisant un modèle de régression linéaire.
-""")
+[data-testid="stMetricDeltaIcon-Down"] {
+    position: relative;
+    left: 38%;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
 
+</style>
+""", unsafe_allow_html=True)
 
+# Barre latérale pour la navigation
+st.sidebar.title("Navigation")
+page = st.sidebar.selectbox("Aller à :", ["Accueil","Dashboard_pop_active","About Us"])
 
-# Interface pour prédire un taux de chômage
-input_data = {col: st.number_input(f"Entrez la valeur pour {col} :", min_value=0.0, max_value=100.0, step=1.0) for col in range(10)}
-if st.button("Prédire"):
-    st.write(f"**Taux de chômage prédit :** %")
+if page == "About Us":
+    about_us_page()
+elif page=="Dashboard_pop_active":
+    dash_pop_active()
+else:
+    accueil_load()
 
-# Section : Résumé et recommandations
-st.subheader("Conclusions")
-st.markdown("""
-- Les cartes interactives révèlent des disparités géographiques importantes dans le taux de chômage.
-- Les jeunes restent les plus vulnérables, ce qui nécessite des efforts accrus en matière de formation et d'insertion professionnelle.
-- Les prédictions montrent le potentiel des données pour guider des politiques ciblées.
-""")
