@@ -10,11 +10,7 @@ from Pages_utiles.About_us  import about_us_page
 from Pages_utiles.Accueil import accueil_load
 import altair as alt
 import openpyxl
-import os# utiliser pour le chemin d'accès
 
-def main_dir(script_path):
-    main=os.path.dirname(__file__)
-    return  os.path.join(main_dir, script_path)
 #data_full_path = os.path.join(main_dir, "Datas/africa_employment_data.xlsx")
 #@st.cache
 #def load_data():
