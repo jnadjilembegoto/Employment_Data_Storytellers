@@ -4,7 +4,7 @@ import streamlit as st
 import pandas as pd
 import altair as alt
 import plotly.express as px
-
+from Streamlit_Storytellers.Main import main_dir
 #######################
 # Page configuration
 def dash_pop_active():
@@ -12,7 +12,8 @@ def dash_pop_active():
     # Load data
     #@st.cache_data
     def load_data():
-        return pd.read_excel('Datas/base_streamlit_storytellers.xlsx',sheet_name="Pop_active_Af_pays")
+         data_path=main_dir('Datas/base_streamlit_storytellers.xlsx')
+        return pd.read_excel(data_path,sheet_name="Pop_active_Af_pays")
 
     df_reshaped = load_data()
 
