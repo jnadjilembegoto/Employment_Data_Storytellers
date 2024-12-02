@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import altair as alt
+import numpy as np
 import plotly.express as px
 from Datas.data_link import data_dir
 
@@ -55,14 +56,18 @@ def dash_secteur_pro_ais():
     st.subheader(f"Proportion des emplois générés par les top 3 des domaines d'activité ({selected_pays}) en {selected_year}")
 ################
     def make_donut(input_response, input_text, input_color):
+       
         if input_color == 'blue':
             chart_color = ['#29b5e8', '#155F7A']
-        if input_color == 'green':
+        elif input_color == 'green':
             chart_color = ['#27AE60', '#12783D']
-        if input_color == 'orange':
+        elif input_color == 'orange':
             chart_color = ['#F39C12', '#875A12']
-        if input_color == 'red':
+        elif input_color == 'red':
             chart_color = ['#E74C3C', '#781F16']
+        else:
+            # Couleur par défaut si input_color est invalide
+            chart_color = ['#D3D3D3', '#A9A9A9']
 
         source = pd.DataFrame({
             "Topic": ['', input_text],
@@ -102,15 +107,19 @@ def dash_secteur_pro_ais():
         var=gen_emploi[i]
         val=round(df_selected_pays[var].iloc[0],1)
         with col[i]:
-            if val<20:
-                color="red"
-            elif val<50:
-                color="yellow"
-            else:
-                color='green'
-            donut_chart = make_donut(val, var,color )
-            st.write(f'{var}')
-            st.altair_chart(donut_chart)
+            
+            if not np.isnan(val):
+                if val<=20:
+                    color="red"
+                elif val<=50:
+                    color="yellow"
+                else:
+                    color='green'
+                donut_chart = make_donut(val, var,color )
+                st.write(f'{var}')
+                st.altair_chart(donut_chart)
+            else :
+                st.write("Données indisponible")
     st.write("Source: Banque Mondiale, WDI")
 
     st.markdown('---')    
@@ -146,24 +155,33 @@ def dash_secteur_pro_ais():
     with col_comp [0]:
         valh=round(df_selected_pays["Employés, agriculture, hommes (% d'emploi des hommes)"].iloc[0],1)
         valf=round(df_selected_pays["Employées, agriculture, femmes (% d'emploi des femmes)"].iloc[0],1)
-        data = pd.DataFrame({
-        "Genre": ["Hommes", "Femmes"],
-        "Pourcentage": [valh, valf] })
-        hist_comp(data,"Emploi dans l'agriculture par genre")
+        if np.isnan(valh) or np.isnan(valf):
+            st.write("Données indisponibles")
+        else :
+            data = pd.DataFrame({
+            "Genre": ["Hommes", "Femmes"],
+            "Pourcentage": [valh, valf] })
+            hist_comp(data,"Emploi dans l'agriculture par genre")
     with col_comp [1]:
         valh=round(df_selected_pays[serv_emploi[1]].iloc[0],1)
         valf=round(df_selected_pays[serv_emploi[0]].iloc[0],1)
-        data = pd.DataFrame({
-        "Genre": ["Hommes", "Femmes"],
-        "Pourcentage": [valh, valf] })
-        hist_comp(data,"Emploi dans les services par genre")
+        if np.isnan(valh) or np.isnan(valf):
+            st.write("Données indisponibles")
+        else:
+            data = pd.DataFrame({
+            "Genre": ["Hommes", "Femmes"],
+            "Pourcentage": [valh, valf] })
+            hist_comp(data,"Emploi dans les services par genre")
     with col_comp [2]:
         valh=round(df_selected_pays[ind_emploi[1]].iloc[0],1)
         valf=round(df_selected_pays[ind_emploi[0]].iloc[0],1)
-        data = pd.DataFrame({
-        "Genre": ["Hommes", "Femmes"],
-        "Pourcentage": [valh, valf] })
-        hist_comp(data,"Emploi dans l'industrie par genre")
+        if np.isnan(valh) or np.isnan(valf):
+            st.write("Données indisponibles")
+        else:
+            data = pd.DataFrame({
+            "Genre": ["Hommes", "Femmes"],
+            "Pourcentage": [valh, valf] })
+            hist_comp(data,"Emploi dans l'industrie par genre")
     st.write("Source: Banque Mondiale, WDI")
 
    

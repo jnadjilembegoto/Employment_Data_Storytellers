@@ -77,6 +77,9 @@ def dash_chom():
         st.write("# 1.Analyse selon les régions Africaines")
         # importations toute la base
         st.write("##  1.1 Evolution du Taux de chômage par Région et par sexe")
+        
+        st.write("##  1.1 Evolution du Taux de chômage par Région et par sexe")
+
 
         Region_afrique=['Central Africa','Eastern Africa', 'Southern Africa', 'Western Africa','Northern Africa']
 
@@ -217,7 +220,7 @@ def dash_chom():
         # Charger les données (ajustez cette ligne en fonction de votre source de données)
         # Exemple fictif de données
 
-        def plot_employment_scatter_interactive(df: pd.DataFrame, age_col: str='Age', year_col: str='Annee', employment_col: str='Taux_emploi'):
+        def plot_employment_scatter_interactive(df: pd.DataFrame, age_col: str='Age', year_col: str='Annee', employment_col: str='Taux_chomage'):
             """
             Plots an interactive scatter plot of employment rate by age group and year.
 
@@ -260,7 +263,7 @@ def dash_chom():
         data_africa_select_pays_age=data_africa_pays_age[data_africa_pays_age["Region"]==select_pays]
 
         data_africa_select_pays_age=data_africa_select_pays_age[data_africa_select_pays_age["Sexe"].isin(["Masculin","Feminin"])]
-        def plot_employment_scatter_interactive(df: pd.DataFrame, Sexe_col: str='Sexe', year_col: str='Annee', employment_col: str='Taux_emploi'):
+        def plot_employment_scatter_interactive(df: pd.DataFrame, Sexe_col: str='Sexe', year_col: str='Annee', employment_col: str='Taux_chomage'):
             """
             Plots an interactive scatter plot of employment rate by age group and year.
 
