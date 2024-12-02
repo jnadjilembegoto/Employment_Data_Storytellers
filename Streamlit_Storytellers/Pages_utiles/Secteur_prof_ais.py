@@ -53,7 +53,7 @@ def dash_secteur_pro_ais():
             #st.metric(label=var, value=f"{valeur:.2f}")
     st.write("Source: Banque Mondiale, WDI")
     st.markdown('---')
-    st.subheader(f"Proportion des emplois générés par les top 3 des domaines d'activité ({selected_pays}) en {selected_year}")
+    st.subheader(f"Proportion des emplois générés par secteur d'activité ({selected_pays}) en {selected_year}")
 ################
     def make_donut(input_response, input_text, input_color):
        
@@ -103,18 +103,14 @@ def dash_secteur_pro_ais():
     
     gen_emploi=["Emplois dans l'agriculture (% du total des emplois)","Emplois dans les services (% du total des emplois)","Emplois dans l'industrie (% du total des emplois)"]
     col = st.columns((1.5, 1.5, 1.5), gap='medium')
+    couleurs=['orange',"red",'green']
     for i in range(3):
         var=gen_emploi[i]
         val=round(df_selected_pays[var].iloc[0],1)
         with col[i]:
             
             if not np.isnan(val):
-                if val<=20:
-                    color="red"
-                elif val<=50:
-                    color="yellow"
-                else:
-                    color='green'
+                color=couleurs[i]
                 donut_chart = make_donut(val, var,color )
                 st.write(f'{var}')
                 st.altair_chart(donut_chart)
@@ -123,7 +119,7 @@ def dash_secteur_pro_ais():
     st.write("Source: Banque Mondiale, WDI")
 
     st.markdown('---')    
-    st.subheader(f"Proportion des emplois générés par les top 3 des domaines d'activité ({selected_pays}) en {selected_year}")
+    st.subheader(f"Proportion des emplois générés par secteuir d'activité ({selected_pays}) en {selected_year}")
     
     # Histogramme avec Altair
     def hist_comp(data,domaine):

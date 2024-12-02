@@ -3,6 +3,7 @@
 import streamlit as st
 import pandas as pd
 import altair as alt
+
 import plotly.express as px
 from Datas.data_link import data_dir
 #######################
@@ -47,7 +48,7 @@ def dash_pop_active():
                                 labels={'Proportion_de_population_active(%)':'Population active(%)'}
                                 )
         choropleth.update_layout(
-            template='plotly_dark',
+            template=None,
             plot_bgcolor='rgba(0, 0, 0, 0)',
             paper_bgcolor='rgba(0, 0, 0, 0)',
             margin=dict(l=0, r=0, t=0, b=0),
@@ -73,24 +74,20 @@ def dash_pop_active():
             ) 
         # height=300
         return heatmap
-    
     #######################
     # Dashboard Main Panel
-    col = st.columns((1.5, 4.5, 2), gap='medium')
+    
+    ##################################################################""
+    col = st.columns((4.5, 2), gap='medium')
 
     with col[0]:
-        st.markdown('#### proportion totale de la Population active en Afrique (%)')
-        
-
-
-    with col[1]:
         st.markdown(f'#### Proportion de la population active en {selected_year}')
         
         choropleth = make_choropleth(df_selected_year, 'Pays', 'Proportion_de_population_active(%)', selected_color_theme)
         st.plotly_chart(choropleth, use_container_width=True)
         
 
-    with col[2]:
+    with col[1]:
         st.markdown(f'#### Classement des pays par population active en {selected_year}')
 
         st.dataframe(df_selected_final,
@@ -109,16 +106,18 @@ def dash_pop_active():
                         )}
                     )
         
-        with st.expander('About', expanded=False):
-            st.write('''
-                - Source: [BIT](https://ilostat.ilo.org/fr/data.html).
-                - :orange[**Population active**]: Une population active qui croît peut s’expliquer par l’entrée sur le marché du travail de nouvelles personnes en quête d’emplo
-                ''')
+        
 
     heatmap = make_heatmap(df_reshaped, 'Annee', 'Pays', 'Proportion_de_population_active(%)', selected_color_theme)
     
     st.markdown(f'#### Proportion des populations actives par pays entre {int(df_reshaped.Annee.min())} et {int(df_reshaped.Annee.max())}')
     st.altair_chart(heatmap, use_container_width=True)
     st.write("Source: ILOSTAT")
+
+    with st.expander('About', expanded=False):
+            st.write('''
+                - Source: [BIT](https://ilostat.ilo.org/fr/data.html).
+                - :orange[**Population active**]: Une population active qui croît peut s’expliquer par l’entrée sur le marché du travail de nouvelles personnes en quête d'emploi
+                ''')
 
 
