@@ -6,8 +6,10 @@ from Pages_utiles.Dashboard_pop_active import dash_pop_active
 from Pages_utiles.Accueil import accueil_load
 from Pages_utiles.Secteur_prof_ais import dash_secteur_pro_ais
 from Pages_utiles.Taux_emploi import dash_taux_emploi
+from Pages_utiles.Taux_chomage import dash_chom
 import altair as alt
 import openpyxl
+
 
 #data_full_path = os.path.join(main_dir, "Datas/africa_employment_data.xlsx")
 #@st.cache
@@ -73,16 +75,18 @@ align-items: center;
 
 # Barre latérale pour la navigation
 st.sidebar.title("Navigation")
-page = st.sidebar.selectbox("Aller à :", ["Accueil","Dashboard_pop_active","Emploi-Activité économique","Apperçu de l'emploi","About Us"])
+page = st.sidebar.selectbox("Aller à :", ["Accueil","Dynamique de la population active","Emploi-Activité économique","Apperçu de l'emploi","Coup d'oeil sur le chômage","About Us"])
 
 if page == "About Us":
     about_us_page()
-elif page=="Dashboard_pop_active":
+elif page=="Dynamique de la population active":
     dash_pop_active()
 elif page=="Emploi-Activité économique":
     dash_secteur_pro_ais()
 elif page=="Apperçu de l'emploi":
     dash_taux_emploi()
+elif page=="Coup d'oeil sur le chômage":
+    dash_chom()
 else:
     accueil_load()
 
