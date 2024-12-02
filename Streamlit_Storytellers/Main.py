@@ -84,7 +84,7 @@ elif page=="Dynamique de la population active":
     dash_pop_active()
 elif page=="Emploi-Activité économique":
     dash_secteur_pro_ais()
-elif page=="Apperçu de l'emploi":
+elif page=="Aperçu de l'emploi":
     dash_taux_emploi()
 elif page=="Coup d'oeil sur le chômage":
     dash_chom()
