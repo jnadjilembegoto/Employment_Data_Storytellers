@@ -119,7 +119,7 @@ def dash_secteur_pro_ais():
     st.write("Source: Banque Mondiale, WDI")
 
     st.markdown('---')    
-    st.subheader(f"Proportion des emplois générés par secteuir d'activité ({selected_pays}) en {selected_year}")
+    st.subheader(f"Proportion des emplois générés par secteur d'activité ({selected_pays}) en {selected_year} en fonction du sexe")
     
     # Histogramme avec Altair
     def hist_comp(data,domaine):
