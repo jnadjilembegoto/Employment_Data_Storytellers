@@ -51,7 +51,7 @@ def dash_sect_informel():
     #onglets = st.tabs(titres_onglets)
     onglets_selectionnee=st.sidebar.radio("Forme d'analyse",titres_onglets)
     if onglets_selectionnee=="Analyse par région 🌍":
-        st.write("## 1.Secteur informel:Taux de'emploi informel par région")
+        st.write("## 1.Secteur informel:Taux d'emploi informel par région")
         data=pd.read_excel(data_path,
                         sheet_name="Infomel_Region")
         #data_Africa=data[data["Region"]=="Africa"]
