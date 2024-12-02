@@ -96,7 +96,7 @@ def dash_pop_active():
 
     with col[0]:
         st.markdown('#### proportion totale de la Population active en Afrique (%)')
-        st.dataframe(data)
+        st.write(data)
 
 
     with col[1]:
