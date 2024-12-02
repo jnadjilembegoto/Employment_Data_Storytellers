@@ -26,7 +26,7 @@ def about_us_page():
     with col_ad:
         st.markdown(
         f"""
-        - 📧 Email:  <student.dylan.tazo@issea-cemac.org>
+        - 📧 Email:  <student.dilane.tazo@issea-cemac.org> ou <dilanetazo007@gmail.org>
         - Linkedin:  https://www.linkedin.com/in/dilane-tazo
         """,
         unsafe_allow_html=True,
