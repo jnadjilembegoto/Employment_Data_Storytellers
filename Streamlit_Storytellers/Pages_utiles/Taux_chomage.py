@@ -77,9 +77,6 @@ def dash_chom():
         st.write("# 1.Analyse selon les régions Africaines")
         # importations toute la base
         st.write("##  1.1 Evolution du Taux de chômage par Région et par sexe")
-        
-        st.write("##  1.1 Evolution du Taux de chômage par Région et par sexe")
-
 
         Region_afrique=['Central Africa','Eastern Africa', 'Southern Africa', 'Western Africa','Northern Africa']
 
