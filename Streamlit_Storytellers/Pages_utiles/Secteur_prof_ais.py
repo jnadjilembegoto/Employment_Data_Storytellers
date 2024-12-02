@@ -36,13 +36,21 @@ def dash_secteur_pro_ais():
         "Service, valeur ajoutée (% du PIB)",
         "Industrie, valeur ajoutée (% du PIB)",
     ]
-    
+    # Affichage des métriques avec une valeur en rouge
+    html_template = """
+<div style="background-color: white; padding: 10px; border-radius: 5px; text-align: center;">
+    <h3 style="color: black; margin: 0;">{label}</h3>
+    <p style="font-size: 24px; font-weight: bold; color: red; margin: 0;">{value}</p>
+</div>
+"""
     for i in range(3):
         with col[i]:
             var=colonnes_secteurs[i]
             valeur = df_selected_pays[var].iloc[0]
-            st.metric(label=var, value=f"{valeur:.2f}")
-    
+            st.markdown(html_template.format(label=var, value=f"{valeur:.2f}"), unsafe_allow_html=True)
+            
+            #st.metric(label=var, value=f"{valeur:.2f}")
+    st.write("Source: Banque Mondiale, WDI")
     st.markdown('---')
     st.subheader(f"Proportion des emplois générés par les top 3 des domaines d'activité ({selected_pays}) en {selected_year}")
 ################
@@ -103,12 +111,61 @@ def dash_secteur_pro_ais():
             donut_chart = make_donut(val, var,color )
             st.write(f'{var}')
             st.altair_chart(donut_chart)
-
+    st.write("Source: Banque Mondiale, WDI")
 
     st.markdown('---')    
     st.subheader(f"Proportion des emplois générés par les top 3 des domaines d'activité ({selected_pays}) en {selected_year}")
+    
+    # Histogramme avec Altair
+    def hist_comp(data,domaine):
+        """
+        la forme du data attendu en entrée :
+
+        data = pd.DataFrame({
+        "Genre": ["Hommes", "Femmes"],
+        "Pourcentage": [30, 25]  # Taux d'emploi en agriculture})
+        """
+        chart = alt.Chart(data).mark_bar().encode(
+            x=alt.X("Genre:N", title="Genre"),
+            y=alt.Y("Pourcentage:Q", title="Pourcentage (%)"),
+            color=alt.Color("Genre:N", scale=alt.Scale(range=["#1f77b4", "#ff7f0e"])),  # Couleurs : bleu et orange
+            tooltip=["Genre", "Pourcentage"]
+        ).properties(
+            width=400,
+            height=300,
+            title=domaine
+        )
+
+        # Affichage dans Streamlit
+        st.altair_chart(chart, use_container_width=True)
     ag_emploi=["Employées, agriculture, femmes (% d'emploi des femmes)","Employés, agriculture, hommes (% d'emploi des hommes)"]
     ind_emploi=["Employées, industrie, femmes (% d'emploi des femmes)","Employés, industrie, hommes (% d'emploi des hommes)"]
     serv_emploi=["Employées, services, femmes (% d'emploi des femmes)","Employés, services, hommes (% d'emploi des hommes)"]
+    #activities=[ag_emploi,serv_emploi,ind_emploi]
+    col_comp= st.columns((1.5, 1.5, 1.5), gap='medium')
+    with col_comp [0]:
+        valh=round(df_selected_pays["Employés, agriculture, hommes (% d'emploi des hommes)"].iloc[0],1)
+        valf=round(df_selected_pays["Employées, agriculture, femmes (% d'emploi des femmes)"].iloc[0],1)
+        data = pd.DataFrame({
+        "Genre": ["Hommes", "Femmes"],
+        "Pourcentage": [valh, valf] })
+        hist_comp(data,"Emploi dans l'agriculture par genre")
+    with col_comp [1]:
+        valh=round(df_selected_pays[serv_emploi[1]].iloc[0],1)
+        valf=round(df_selected_pays[serv_emploi[0]].iloc[0],1)
+        data = pd.DataFrame({
+        "Genre": ["Hommes", "Femmes"],
+        "Pourcentage": [valh, valf] })
+        hist_comp(data,"Emploi dans les services par genre")
+    with col_comp [2]:
+        valh=round(df_selected_pays[ind_emploi[1]].iloc[0],1)
+        valf=round(df_selected_pays[ind_emploi[0]].iloc[0],1)
+        data = pd.DataFrame({
+        "Genre": ["Hommes", "Femmes"],
+        "Pourcentage": [valh, valf] })
+        hist_comp(data,"Emploi dans l'industrie par genre")
+    st.write("Source: Banque Mondiale, WDI")
+
+   
 
         

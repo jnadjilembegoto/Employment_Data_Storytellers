@@ -108,13 +108,16 @@ def dash_pop_active():
                         )}
                     )
         
-        with st.expander('About', expanded=True):
+        with st.expander('About', expanded=False):
             st.write('''
                 - Source: [BIT](https://ilostat.ilo.org/fr/data.html).
                 - :orange[**Population active**]: Une population active qui croît peut s’expliquer par l’entrée sur le marché du travail de nouvelles personnes en quête d’emplo
                 ''')
 
     heatmap = make_heatmap(df_reshaped, 'Annee', 'Pays', 'Proportion_de_population_active(%)', selected_color_theme)
+    
+    st.markdown(f'#### Proportion des populations actives par pays entre {int(df_reshaped.Annee.min())} et {int(df_reshaped.Annee.max())}')
     st.altair_chart(heatmap, use_container_width=True)
+    st.write("Source: ILOSTAT")
 
 
