@@ -110,7 +110,7 @@ def dash_taux_emploi():
                     x=data_pivot['Region'],
                     y=data_pivot['Masculin'],
                     name="Masculin",
-                    marker_color='red',
+                    marker_color='#A10000',
                 ))
 
             # Ajout de la barre "Feminin"
@@ -119,7 +119,7 @@ def dash_taux_emploi():
                     x=data_pivot['Region'],
                     y=data_pivot['Feminin'],
                     name="Feminin",
-                    marker_color='cyan',
+                    marker_color='#0067A5',
                 ))
 
             # Mise en forme du graphique interactif avec Plotly

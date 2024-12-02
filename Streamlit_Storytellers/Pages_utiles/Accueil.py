@@ -4,6 +4,8 @@ from Photos.photo_link import main_dir
 
 logo_path = main_dir("logo_issea.jpg")
 logo = Image.open(logo_path)
+
+
 def accueil_load(): 
     # Titre de l'application
         # Sidebar
@@ -31,7 +33,7 @@ def accueil_load():
     st.markdown(
         """
         ### Résumé
-        Explorez les données sur le marché du travail en Afrique avec des visualisations interactives et des analyses prédictives.
+        Explorez les données sur le marché du travail en Afrique avec des visualisations interactives.
         Cette application combine des cartes et des graphiques pour fournir des insights clés.
 
         Les détails de notre travail sont donnés dans le [*Notebook*](https://github.com/jnadjilembegoto/Employment_Data_Storytellers)
@@ -47,6 +49,11 @@ def accueil_load():
         A gauche se trouve le ménu déroulant pour naviguer dans les différents tableaux de board :
 
         - **Accueil:** We are here!
+        - **Dynamique de la population active:** Un aperçu sur la proportion des personnes âgées de 15 à 64 ans dans un pays
+        - **Emploi-Activité économique:** Une description des trois secteurs d'activités clés (agriculture, industrie et service)
+        - **Aperçu de l'emploi:** Des analyses par pays, régionales et comparatives sur le taux d'emploi
+        - **Coup d'oeil sur le chômage:** Des analyses similaires au taux d'emploi sont effectuées sur le taux de chômage
+        - **Emploi informel:** Des analyses sur le taux d'emploi informel par région, pays et des analyses comparatives
         - **About us:** Une présentation de tous les membres de la Data Storytellers Team.
        """
     )

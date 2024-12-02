@@ -76,9 +76,28 @@ def dash_pop_active():
         return heatmap
     #######################
     # Dashboard Main Panel
-    
-    ##################################################################""
+    st.markdown(f"# Participation à la main d'oeuvre")
+    st.markdown('---')
+    data_path=data_dir('base_streamlit_storytellers.xlsx')
+    df=pd.read_excel(data_path,sheet_name="taux_participation")
+
+        # Graphique avec plotly express
+    fig = px.line(
+        df, 
+        x='time', 
+        y='obs_value', 
+        labels={'obs_value': 'Participation (%)', 'time': 'Année'},
+        title="Taux de participation à la main d'œuvre en Afrique"
+    )
+
+    # Affichage dans Streamlit
+    st.markdown("### Graphique : Taux de participation à la main d'œuvre en Afrique")
+    st.plotly_chart(fig, use_container_width=True)
+    st.write("Source : ILOSTAT")
+    st.markdown('---')
+        ##################################################################""
     col = st.columns((4.5, 2), gap='medium')
+   
 
     with col[0]:
         st.markdown(f'#### Proportion de la population active en {selected_year}')

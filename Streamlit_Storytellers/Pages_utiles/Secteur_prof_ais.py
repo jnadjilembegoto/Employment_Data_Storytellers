@@ -4,6 +4,7 @@ import altair as alt
 import numpy as np
 import plotly.express as px
 from Datas.data_link import data_dir
+#from Pages_utiles.Dashboard_pop_active import make_choropleth
 
 def dash_secteur_pro_ais():
      #######################
@@ -29,6 +30,8 @@ def dash_secteur_pro_ais():
         df_selected_year = df_reshaped[df_reshaped.Annee == selected_year]
         df_selected_pays=df_selected_year[df_selected_year.Pays==selected_pays]
 ###########
+    st.markdown("# Professions clés de l'économie")
+    st.markdown('---')
     st.subheader(f"Contribution des trois secteurs clés dans l'économie ({selected_pays}) en {selected_year}")
     col = st.columns((1.5, 1.5, 1.5), gap='medium')
     
@@ -52,6 +55,14 @@ def dash_secteur_pro_ais():
             
             #st.metric(label=var, value=f"{valeur:.2f}")
     st.write("Source: Banque Mondiale, WDI")
+    st.markdown('---')
+#############################################################################################################
+    #secteurr=["Emplois dans l'industrie (% du total des emplois)","Emplois dans l'agriculture (% du total des emplois)","Emplois dans les services (% du total des emplois)"]
+
+    #st.subheader("Repartition continentale de la part d'emploi généré par secteur d'activité")
+    #selected_secteur=st.selectbox("")
+    #df_reshaped
+
     st.markdown('---')
     st.subheader(f"Proportion des emplois générés par secteur d'activité ({selected_pays}) en {selected_year}")
 ################

@@ -48,11 +48,11 @@ def dash_chom():
 
     with st.sidebar:
         st.markdown('---')
-        st.title("🛑 Aperçu du taux de chômage en Afrique")
+        st.title("🛑 Aperçue du taux de chômage en Afrique")
     
-    st.title("Aperçu du taux de chômage en Afrique")
+    st.title("Aperçue du taux de chômage en Afrique")
 
-    titres_onglets = ["Analyse par région 🌍", "Analyse par pays 🏳️", "Analyse comparative ↔️ 📊"]
+    titres_onglets = ["Analyse par région 🌍", "Analyse par pays 🏳️", "Analyse comparative ↔️ 📊","Données de 2024 sur le chômage"]
     
     onglet_selectionne = st.sidebar.radio("Forme d'analyse", titres_onglets)
     # à utiliser aux points 2 et 3
@@ -107,7 +107,7 @@ def dash_chom():
                     x=data_pivot['Region'],
                     y=data_pivot['Masculin'],
                     name="Masculin",
-                    marker_color='red',
+                    marker_color='#A10000',
                 ))
 
             # Ajout de la barre "Feminin"
@@ -116,7 +116,7 @@ def dash_chom():
                     x=data_pivot['Region'],
                     y=data_pivot['Feminin'],
                     name="Feminin",
-                    marker_color='cyan',
+                    marker_color='#0067A5',
                 ))
 
             # Mise en forme du graphique interactif avec Plotly
@@ -245,12 +245,13 @@ def dash_chom():
             )
             # Show the interactive plot using Streamlit
             st.plotly_chart(fig)
-        st.write("Sources:Données issues de ILOSTAT")
+        
 
 
         st.write(f"Taux de chômage par âge et par année  ({select_pays})")
         # Appel de la fonction pour afficher le graphique
         plot_employment_scatter_interactive(data_select_pays)
+        st.write("Sources:Données issues de ILOSTAT")
 
 
         st.write(f" ## 2.2 Evolution du Taux de chômage par Sexe dans le pays  ({select_pays})")
@@ -287,10 +288,10 @@ def dash_chom():
             )
             # Show the interactive plot using Streamlit
             st.plotly_chart(fig)
-        st.write("Sources:Données issues de ILOSTAT")
+        
 
         plot_employment_scatter_interactive(data_africa_select_pays_age)
-
+        st.write("Sources:Données issues de ILOSTAT")
         
     elif onglet_selectionne == "Analyse comparative ↔️ 📊":
         st.write("## 3.Analyse comparative :Cartographie des pays Africains selon le taux de chômage")
@@ -305,8 +306,8 @@ def dash_chom():
         #st.selectbox('Select a color theme', color_theme_list)
         ## Selection de l'année
         df_selected_year=data_africa_pays_Total[data_africa_pays_Total["Annee"]==selected_year]
-
-
+    
+ 
 
 
         def make_choropleth(
@@ -485,3 +486,26 @@ def dash_chom():
             st.plotly_chart(choropleth_age1,use_container_width=True)
         with col[1]:
             st.plotly_chart(choropleth_age2, use_container_width=True)
+    elif onglet_selectionne=="Données de 2024 sur le chômage":
+        #st.header("Statistique Actuelle sur le chômage des jeunes")
+        
+        
+        data = {
+            "Zone": ["Monde", "Afrique", "Afrique Subsaharienne"],
+            "Général": [5, 6.5, 5.9],
+            "Jeunes": [12.6, 9.7,8.5]
+        }
+
+        # Création du DataFrame
+        df = pd.DataFrame(data)
+
+        # Affichage du tableau
+        st.markdown("### Taux de chômage par zone géographique (%)")
+     
+        st.dataframe(df, use_container_width=True)
+        st.write("ILOSTAT, 2024")
+
+
+    
+
+
