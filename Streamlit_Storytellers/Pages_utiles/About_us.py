@@ -10,7 +10,7 @@ def about_us_page():
     st.markdown(
         f"""
         ##### AZAPMO TAZO Dylan 
-        - Email:  <student.dilane.tazo@issea-cemac.org>
+        - Email:  <>
         - GitHub: https://
 
         ##### MPOLAH SOH Natacha Flaire
@@ -18,7 +18,7 @@ def about_us_page():
         - Linkdin: https://
 
         ##### NADJILEM BEGOTO
-        - Email: <jnadjilembegoto@gmail.com> ou <student.begoto.nadjilem@issea-cemac.org>
+        - Email: <jnadjilembegoto@gmail.com>
         - Linkdin: https://
 
         ##### TEYANBAYE BERTORNGAI Christian

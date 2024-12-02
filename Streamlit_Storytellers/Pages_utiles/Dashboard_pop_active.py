@@ -23,9 +23,10 @@ def dash_pop_active():
     with st.sidebar:
         st.title('🏂 Population active')
         
-        year_list = list(df_reshaped.Annee.unique())[::-1]
-        selected_year = st.selectbox('Choisir une année', year_list)
-        
+        #year_list = list(df_reshaped.Annee.unique())[::-1]
+        #selected_year = st.selectbox('Choisir une année', year_list)
+        selected_year = st.sidebar.slider("Sélectionnez une année :", int(df_reshaped.Annee.min()), int(df_reshaped.Annee.max()), 2020)
+
         sexe=list(df_reshaped.Sexe.unique())
         selected_sexe=st.selectbox('Choisir le genre', sexe)
 
