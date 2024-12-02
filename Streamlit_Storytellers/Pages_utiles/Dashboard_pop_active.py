@@ -4,7 +4,6 @@ import streamlit as st
 import pandas as pd
 import altair as alt
 import plotly.express as px
-import requests
 from Datas.data_link import data_dir
 #######################
 # Page configuration
@@ -74,29 +73,14 @@ def dash_pop_active():
             ) 
         # height=300
         return heatmap
-     # Fonction pour récupérer les données de la Banque mondiale#####################################################################
-    def get_data_from_world_bank(year):
-        url = f'http://api.worldbank.org/v2/country/{"/".join(["AFR", "AFR"])}/indicator/SL.TLF.TOTL.ZS?date={year}&format=json'
-        
-        response = requests.get(url)
-        data = response.json()
-        
-        # Extraire les données du JSON
-        if len(data) > 1:
-            df = pd.DataFrame(data[1])
-            df = df[['country', 'date', 'value']]
-            df['value'] = df['value'].round(2)
-            return df
-        else:
-            return None
-    data = get_data_from_world_bank(selected_year)
+    
     #######################
     # Dashboard Main Panel
     col = st.columns((1.5, 4.5, 2), gap='medium')
 
     with col[0]:
         st.markdown('#### proportion totale de la Population active en Afrique (%)')
-        st.write(data)
+        
 
 
     with col[1]:
