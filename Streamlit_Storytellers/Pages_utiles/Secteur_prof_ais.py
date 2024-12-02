@@ -133,7 +133,7 @@ def dash_secteur_pro_ais():
         chart = alt.Chart(data).mark_bar().encode(
             x=alt.X("Genre:N", title="Genre"),
             y=alt.Y("Pourcentage:Q", title="Pourcentage (%)"),
-            color=alt.Color("Genre:N", scale=alt.Scale(range=["#1f77b4", "#ff7f0e"])),  # Couleurs : bleu et orange
+            color=alt.Color("Genre:N", scale=alt.Scale(range=["#1f77b4", "#ff7f0e"]),legend=None),  # Couleurs : bleu et orange
             tooltip=["Genre", "Pourcentage"]
         ).properties(
             width=400,
