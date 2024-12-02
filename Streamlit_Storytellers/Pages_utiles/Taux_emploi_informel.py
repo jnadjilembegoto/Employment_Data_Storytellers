@@ -1,8 +1,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
-import seaborn as sns
-import matplotlib.pyplot as plt
+
 import plotly.express as px
 from Datas.data_link import data_dir
 
