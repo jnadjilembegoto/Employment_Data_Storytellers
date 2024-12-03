@@ -92,7 +92,7 @@ elif page=="Coup d'oeil sur le chômage":
 elif page=="Emploi informel":
     dash_sect_informel()
 elif page=="Inégalité dans les postes manageriaux":
-dash_chef_entreprise()
+    dash_chef_entreprise()
 else:
     accueil_load()
 
