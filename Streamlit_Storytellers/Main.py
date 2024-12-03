@@ -8,6 +8,7 @@ from Pages_utiles.Secteur_prof_ais import dash_secteur_pro_ais
 from Pages_utiles.Taux_emploi import dash_taux_emploi
 from Pages_utiles.Taux_chomage import dash_chom
 from Pages_utiles.Taux_emploi_informel import dash_sect_informel
+from Pages_utiles.Chef_d_entreprise import dash_chef_entreprise
 import altair as alt
 import openpyxl
 
@@ -76,7 +77,7 @@ align-items: center;
 
 # Barre latérale pour la navigation
 st.sidebar.title("Navigation")
-page = st.sidebar.selectbox("Aller à :", ["Accueil","Dynamique de la population active","Emploi-Activité économique","Aperçu de l'emploi","Coup d'oeil sur le chômage","Emploi informel","About Us"])
+page = st.sidebar.selectbox("Aller à :", ["Accueil","Dynamique de la population active","Emploi-Activité économique","Aperçu de l'emploi","Inégalité dans les postes manageriaux","Coup d'oeil sur le chômage","Emploi informel","About Us"])
 
 if page == "About Us":
     about_us_page()
@@ -90,6 +91,8 @@ elif page=="Coup d'oeil sur le chômage":
     dash_chom()
 elif page=="Emploi informel":
     dash_sect_informel()
+elif page=="Inégalité dans les postes manageriaux":
+    dash_chef_entreprise()
 else:
     accueil_load()
 
