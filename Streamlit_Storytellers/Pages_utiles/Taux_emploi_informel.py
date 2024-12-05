@@ -4,7 +4,8 @@ import plotly.graph_objects as go
 
 import plotly.express as px
 from Datas.data_link import data_dir
-from Pages_utiles.Emploi_vulnerable import emploi_vul
+from Pages_utiles.Emploi_vulnerable import emploi_vul# ici c'est travailleur pauvre
+from Pages_utiles.Taux_emploi_vulnerable import dash_taux_empl_vul
 
 data_path=data_dir('base_streamlit_storytellers.xlsx')
 ## Definition de fonction pour gerer sidebar
@@ -65,7 +66,7 @@ def dash_sect_informel():
     st.sidebar.markdown('---')
     st.sidebar.write("## 👷‍♂️ 🛠️ Emploi informel et vulnérable")
     st.sidebar.write("Aller ")
-    titres_onglets = ["Analyse par région 🌍", "Analyse par pays 🏳", "Analyse comparative ↔ 📊"," Emploi Vulnérable"]
+    titres_onglets = ["Analyse par région 🌍", "Analyse par pays 🏳", "Analyse comparative ↔ 📊"," Travailleur pauvre","Taux d'emploi vulnérable"]
 
     #onglets = st.tabs(titres_onglets)
     onglets_selectionnee=st.sidebar.radio("Forme d'analyse",titres_onglets)
@@ -371,7 +372,10 @@ def dash_sect_informel():
         with col[1]:
             st.plotly_chart(choropleth_Femmes, use_container_width=True)
         st.write("Sources:Données issues de ILOSTAT")
-    if onglets_selectionnee== " Emploi Vulnérable":
+    if onglets_selectionnee== " Travailleur pauvre":
          emploi_vul()
+    if onglets_selectionnee== "Taux d'emploi vulnérable":
+         dash_taux_empl_vul()
+              
 
 
