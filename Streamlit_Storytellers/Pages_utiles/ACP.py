@@ -138,6 +138,12 @@ def acp_analyse():
         labels={"PC1": "Contribution", "index": "Variables"},
         template="plotly_white"
     )
+    fig_PC1.update_layout(
+    title="Contributions des variables à la première composante principale (PC1)",
+    yaxis_title="Variables",
+    xaxis_title="Contribution",
+    template="plotly_white"
+    )
     st.plotly_chart(fig_PC1)
 
     # Contributions pour PC2
@@ -150,6 +156,12 @@ def acp_analyse():
         title="Contributions à PC2",
         labels={"PC2": "Contribution", "index": "Variables"},
         template="plotly_white"
+    )
+    fig_PC2.update_layout(
+    title="Contributions des variables à la seconde composante principale (PC2)",
+    yaxis_title="Variables",
+    xaxis_title="Contribution",
+    template="plotly_white"
     )
     st.plotly_chart(fig_PC2)
 
