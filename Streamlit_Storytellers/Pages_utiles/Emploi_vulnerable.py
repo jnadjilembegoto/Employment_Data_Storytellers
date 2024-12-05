@@ -49,7 +49,7 @@ def emploi_vul():
         key="select_pays"
     )
         
-    st.write("#### Evolution animée du taux de travailleurs pauvres :"+pays_cible)
+    st.write("#### Evolution animée du taux de travailleurs pauvres :")
 
     # Sélection de l'animation via un sélecteur radio
     selection = st.sidebar.radio(
@@ -69,7 +69,7 @@ def emploi_vul():
             hover_name='Pays',
             range_y=[0, 100],
             animation_frame='Annee',
-            title="Evolution du taux de travailleurs pauvres  et par sexe " +pays_cible )
+            title="Evolution du taux de travailleurs pauvres  et par sexe "  )#+pays_cible
         
         st.plotly_chart(fig_animation_global, key="animation_global")
 
