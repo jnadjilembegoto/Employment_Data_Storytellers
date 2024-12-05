@@ -124,13 +124,15 @@ def acp_analyse():
     components = pca.components_[:2] ** 2
     contributions = components / components.sum(axis=1, keepdims=True)
     contribution_df = pd.DataFrame(contributions.T, index=data_acp.columns, columns=['PC1', 'PC2'])
+    contributions_PC1_sorted = contribution_df['PC1'].sort_values(ascending=True)
+    contributions_PC2_sorted = contribution_df['PC2'].sort_values(ascending=True)
 
     # Contributions pour PC1
     st.write("### Contributions des variables à la première composante principale (PC1)")
     fig_PC1 = px.bar(
         contribution_df,
-        y=contribution_df.index,
-        x="PC1",
+        y=contributions_PC1_sorted.index,
+        x=contributions_PC1_sorted.values,
         orientation='h',
         title="Contributions à PC1",
         labels={"PC1": "Contribution", "index": "Variables"},
@@ -142,8 +144,8 @@ def acp_analyse():
     st.write("### Contributions des variables à la seconde composante principale (PC2)")
     fig_PC2 = px.bar(
         contribution_df,
-        y=contribution_df.index,
-        x="PC2",
+        y=contributions_PC2_sorted.index,
+        x=contributions_PC2_sorted.values,
         orientation='h',
         title="Contributions à PC2",
         labels={"PC2": "Contribution", "index": "Variables"},
