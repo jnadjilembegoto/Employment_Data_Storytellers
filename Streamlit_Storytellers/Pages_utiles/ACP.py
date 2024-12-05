@@ -37,7 +37,7 @@ def acp_analyse():
 
     st.title("Analyse en Composantes Principales (ACP)")
     st.write("un coup d'oeil sur les variables utilisées")
-    with st.expander('About', expanded=False):
+    with st.expander('Variables', expanded=False):
 
         st.markdown("share_yth_not_in_EET : Share of youth not in education, employment or training, total (% of youth population) (modeled ILO estimate)")
         st.markdown("female_labor_rate_particip: Labor force participation rate, female (% of female population ages 15+) (modeled ILO estimate)")
