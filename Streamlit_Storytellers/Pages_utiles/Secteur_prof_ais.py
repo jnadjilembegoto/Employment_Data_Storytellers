@@ -8,6 +8,23 @@ from Datas.data_link import data_dir
 
 def dash_secteur_pro_ais():
      #######################
+    st.markdown("""
+        <style>
+        .stApp {
+            background-color: #eaf6ff; /* Bleu clair inspiré de Stata */
+        }
+        .sidebar .sidebar-content {
+            background-color: #d0e6f5; /* Bleu encore plus clair pour la barre latérale */
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #1f77b4; /* Bleu Stata pour les titres */
+        }
+        .stButton>button {
+            background-color: #1f77b4; /* Boutons Stata */
+            color: white;
+        }
+        </style>
+        """, unsafe_allow_html=True)
     # Load data
     #@st.cache_data
     def load_data():
@@ -21,7 +38,7 @@ def dash_secteur_pro_ais():
         st.title("🌾 🏭 🛍️ Professions clés de l'économie")
         
         year_list = list(df_reshaped.Annee.unique())[::-1]
-        selected_year = st.selectbox('Choisir une année', year_list)
+        selected_year = st.slider('Choisir une année', int(min(year_list)),int(max(year_list)))
         
         Pays=list(df_reshaped.Pays.unique())
         selected_pays=st.selectbox('Choisir le pays', Pays)

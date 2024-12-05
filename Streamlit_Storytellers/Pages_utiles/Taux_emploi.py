@@ -1,76 +1,68 @@
 import streamlit as st
-
 import pandas as pd
 import plotly.graph_objects as go
 
 import plotly.express as px
-
+from Datas.data_link import data_dir
 # Titre de l'application avec un fond blanc
 
-from Datas.data_link import data_dir
 
 def dash_taux_emploi():
-    
+        
+    ##  Design
+
+
+    # CSS personnalisé pour l'arrière-plan
     st.markdown("""
-    <style>
-    /* Ajuste la largeur totale du conteneur principal */
-    [data-testid="stAppViewContainer"] {
-        max-width: 100%; /* Ajustez la largeur à 95% de l'écran */
-        padding-left: 0rem; /* Supprime les marges latérales */
-        padding-right: 0rem;
-        margin-left: auto;
-        margin-right: auto;
-    }
+        <style>
+        .stApp {
+            background-color: #eaf6ff; /* Bleu clair inspiré de Stata */
+        }
+        .sidebar .sidebar-content {
+            background-color: #d0e6f5; /* Bleu encore plus clair pour la barre latérale */
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #1f77b4; /* Bleu Stata pour les titres */
+        }
+        .stButton>button {
+            background-color: #1f77b4; /* Boutons Stata */
+            color: white;
+        }
+        </style>
+        """, unsafe_allow_html=True)
 
-    /* Réduit les marges des blocs pour un meilleur alignement */
-    [data-testid="block-container"] {
-        padding: 1rem 0rem; /* Ajoute un espacement en haut et en bas uniquement */
-    }
-
-    /* Permet d'afficher plusieurs graphiques sur une même ligne */
-    [data-testid="stHorizontalBlock"] > div {
-        flex: 1; /* Répartit l'espace horizontalement */
-        margin-right: 1rem; /* Ajoute un espace entre les colonnes */
-    }
-
-    /* Améliore la gestion des composants interactifs */
-    [data-testid="stSidebar"] {
-        padding-left: 0rem;
-        padding-right: 0rem;
-    }
-    </style>
-    """, unsafe_allow_html=True)
+    
 
 
 
     # Titre de l'application
 
 
-    st.title("Aperçu du taux d'emploi en Afrique")
+    #st.title("Apercu sur le taux d'emploi en Afrique")
 
     # Chargement des données
-    # Load data
-    #@st.cache_data
-    def load_data():
-         data_path=data_dir('base_streamlit_storytellers.xlsx')
-         return pd.read_excel(data_path,sheet_name="Taux_emploi_chomage_Afrique")
 
-    base = load_data()
     #""""""""""""""""""""""""""""""""""""""""""""""
-    with st.sidebar:
-        st.markdown('---')
-        st.title("💼 Aperçu du taux d'emploi en Afrique")
+    st.sidebar.write("## Navigation")
+    st.sidebar.write("Aller ")
+    titres_onglets = ["Analyse par région 🌍", "Analyse par pays 🏳", "Analyse comparative ↔ 📊"]
 
-    titres_onglets = ["Analyse par région 🌍", "Analyse par pays 🏳️", "Analyse comparative ↔️ 📊"]
-    onglets = st.tabs(titres_onglets)
-    ###############
-    with onglets[0]:
+    #onglets = st.tabs(titres_onglets)
 
-        #st.sidebar.subheader("Analyse selon les régions Africaines")
-        st.write("# 1.Analyse selon les régions Africaines")
+    ## chargement de la premère base 
+    data_path=data_dir('base_streamlit_storytellers.xlsx')
+    base=pd.read_excel(data_path,sheet_name="Taux_emploi_chomage_Afrique")
+    ## chargement de la deuxième base de données
+
+    data=pd.read_excel(data_path,sheet_name="Taux_emploi_chomage_Afrique1")
+   
+    onglets_selectionnee=st.sidebar.radio("Forme d'analyse",titres_onglets)
+    if onglets_selectionnee=="Analyse par région 🌍":
+        st.write("## 1.Analyse selon les régions Africaines")
         # importations toute la base
-        st.write("##  1.1 Evolution du Taux d'emploi par Région et par sexe")
-        
+        st.write("###  1.1 Evolution du Taux d'emploi par Région et par sexe")
+    
+
 
 
         Region_afrique=['Central Africa','Eastern Africa', 'Southern Africa', 'Western Africa','Northern Africa']
@@ -146,7 +138,7 @@ def dash_taux_emploi():
         st.write("Source:Données issues de ILOSTAT")
 
 
-        st.write("## 1.2 Analyse du taux d'emploi par Région et par Tranche d'âge de la population active")
+        st.write("### 1.2 Analyse du taux d'emploi par Région et par Tranche d'âge de la population active")
         # Choix de la region
         selected_Region=st.selectbox("Filtrez selon la  Region d'Afrique :", Region_afrique)
 
@@ -200,159 +192,165 @@ def dash_taux_emploi():
         fig = plot_employment_rate_evolution(data_region_age[data_region_age["Region"]==selected_Region])
         st.plotly_chart(fig)
         #La source des données
-        st.write("Source:Données issues de ILOSTAT")
-
-    with onglets[1]:
-        st.write("# 2.Analyse du taux de l'emploi selon les pays")
-        Africa_pays=['Angola', 'Burundi', 'Benin', 'Burkina Faso', 'Botswana',
-            "Côte d'Ivoire", 'Cameroon', 'Congo, Democratic Republic of the',
-            'Congo', 'Comoros', 'Cabo Verde', 'Djibouti', 'Algeria', 'Egypt',
-            'Ethiopia', 'Gabon', 'Ghana', 'Guinea', 'Gambia', 'Guinea-Bissau',
-            'Kenya', 'Liberia', 'Libya', 'Lesotho', 'Morocco', 'Madagascar',
-            'Mali', 'Mozambique', 'Mauritania', 'Mauritius', 'Malawi',
-            'Namibia', 'Niger', 'Nigeria', 'Réunion', 'Rwanda', 'Sudan',
-            'Senegal', 'Saint Helena', 'Sierra Leone', 'Somalia',
-            'South Sudan', 'Sao Tome and Principe', 'Eswatini', 'Seychelles',
-            'Chad', 'Togo', 'Tunisia', 'Tanzania, United Republic of',
-            'Uganda','South Africa', 'Zambia', 'Zimbabwe']
+        st.write("Source:Caculs de l'auteur,ILOSTAT")
 
 
-        data_africa_pays=base[base["Region"].isin(Africa_pays)]
-
-
-        #data1 = pd.read_excel("C:/Users/elias/Desktop/Competition/Taux_chomage.xlsx", sheet_name="Sexe_Age_Annee_Pays")
-
-        #selected_pays = st.selectbox("Sélectionnez une année :", Africa_pays)
-        data_africa_pays_age=data_africa_pays[data_africa_pays["Sexe"]=="Total"]
-
-        select_pays=st.selectbox("Choisir le pays", Africa_pays)
-        st.markdown(f"## 2.1 Evolution du Taux d'emploi dans le pays({select_pays}) suivant les catégories d'âges")
-        data_select_pays=data_africa_pays_age[data_africa_pays_age["Region"]==select_pays]
-        #st.title("Evolution du taux de chômage par pays et par âge")
-
-        #col=st.columns(1,3)
-        #witth col[1]:
-        # Charger les données (ajustez cette ligne en fonction de votre source de données)
-        # Exemple fictif de données
-
-
-        def plot_employment_scatter_interactive(df: pd.DataFrame, age_col: str='Age', year_col: str='Annee', employment_col: str='Taux_emploi'):
+    if onglets_selectionnee=="Analyse par pays 🏳":
+        st.write("## 2.Analyse du taux de l'emploi selon les pays")
+        select_pays=st.selectbox("Choisir le pays", data["Pays"].unique())
+        data_pays=data[data["Pays"]==select_pays]
+        def plot_employment_evolution(df: pd.DataFrame, year_col: str = 'Annee'):
             """
-            Plots an interactive scatter plot of employment rate by age group and year.
+            Trace l'évolution du chômage des femmes, des hommes et total.
 
             Args:
-                df: The Pandas DataFrame containing the data.
-                age_col: The column name for age.
-                year_col: The column name for year.
-                unemployment_col: The column name for employment rate.
+                df: Le DataFrame contenant les données.
+                year_col: Le nom de la colonne pour les années.
             """
-            # Create an interactive scatter plot using Plotly Express
-            fig = px.scatter(
-                df,
+            # Réorganisation des données pour un format long
+            df_melted = df.melt(
+                id_vars=[year_col], 
+                value_vars=["Ratio_emploi/population(15+,Femmes)","Ratio_emploi/population(15+,Hommes)",
+                            "Ratio_emploi/population(15+)","Ratio_emploi/population(15-24ans,femmes)",
+                            "Ratio_emploi/population(15-24ans,hommes)","Ratio_emploi/population(15-24ans,Total)"],
+
+    #", "Chômage_hommes ", "chômage_pays","Chômage_jeunes_femmes","Chômage_jeunes_hommes"], 
+                var_name="Catégorie", 
+                value_name="emploi /population active")
+            
+            
+            # Création du graphique interactif
+            fig = px.line(
+                df_melted,
                 x=year_col,
-                y=employment_col,
-                color=age_col,
-                size=employment_col,  # Optional: size of points based on unemployment rate
-                #title="Nuage de points : Taux de chômage par âge et par année",
-                labels={year_col: "Année", employment_col: "Taux d'emploi", age_col: "Tranche d'âge"},
-                hover_data={age_col: True, employment_col: True, year_col: True}
+                y="emploi /population active",
+                color="Catégorie",
+                markers=False,
+                labels={year_col: "Année", "Ratio emploi/population": "emploi/population (%)", "Catégorie": "Catégorie"},
+                title="Évolution du ratio emploi/population active par sexe et âge"
             )
+
             fig.update_layout(
                 template="plotly_white",
-                hovermode="closest"
+                hovermode="x unified",
+                legend=dict(title="Catégorie", orientation="h", y=-0.2),
+                height=500
             )
-            # Show the interactive plot using Streamlit
+
+            
             st.plotly_chart(fig)
+
         
+        plot_employment_evolution(data_pays)
+        st.write("Sources: Calculs de l'auteur, Banque mondiale(WDI)")
 
+        ### Commentaire automatique
 
-        st.write(f"Taux d'emploi par âge et par année  ({select_pays})")
-        # Appel de la fonction pour afficher le graphique
-        plot_employment_scatter_interactive(data_select_pays)
-        #La source des données
-        st.write("Source:Données issues de ILOSTAT")
-
-        st.write(f" ## 2.2 Evolution du Taux d'emploi par Sexe dans le pays  ({select_pays})")
-
-
-        data_africa_pays_age=data_africa_pays[data_africa_pays["Age"]=="Age (Jeunes, adultes) : 15-64 ans"]
-
-        data_africa_select_pays_age=data_africa_pays_age[data_africa_pays_age["Region"]==select_pays]
-
-        data_africa_select_pays_age=data_africa_select_pays_age[data_africa_select_pays_age["Sexe"].isin(["Masculin","Feminin"])]
-        def plot_employment_scatter_interactive(df: pd.DataFrame, Sexe_col: str='Sexe', year_col: str='Annee', employment_col: str='Taux_emploi'):
+        def commentaire(df: pd.DataFrame, year_col: str = 'Annee', country: str = None) -> None:
             """
-            Plots an interactive scatter plot of employment rate by age group and year.
+            Génère un commentaire automatique sur les tendances du ratio emploi/population.
 
             Args:
-                df: The Pandas DataFrame containing the data.
-                age_col: The column name for age.
-                year_col: The column name for year.
-                employment_col: The column name for employment rate.
+                df: Le DataFrame contenant les données.
+                year_col: La colonne indiquant les années.
+                country: Le pays sélectionné pour le commentaire.
             """
-            # Create an interactive scatter plot using Plotly Express
-            fig = px.scatter(
-                df,
-                x=year_col,
-                y=employment_col,
-                color=Sexe_col,
-                size=employment_col,  # Optional: size of points based on unemployment rate
-                labels={year_col: "Année", employment_col: "Taux d'emploi", Sexe_col: "Sexe"},
-                hover_data={Sexe_col: True,employment_col: True, year_col: True}
+            # Réorganisation des données pour un format long
+            df_melted = df.melt(
+                id_vars=[year_col],
+                value_vars=["Ratio_emploi/population(15+,Femmes)", "Ratio_emploi/population(15+,Hommes)",
+                            "Ratio_emploi/population(15+)", "Ratio_emploi/population(15-24ans,femmes)",
+                            "Ratio_emploi/population(15-24ans,hommes)", "Ratio_emploi/population(15-24ans,Total)"],
+                var_name="Catégorie",
+                value_name="Emploi/Population"
             )
-            fig.update_layout(
-                template="plotly_white",
-                hovermode="closest"
+
+            # Calcul des statistiques par catégorie
+            stats = (
+                df_melted.groupby("Catégorie")
+                .apply(lambda group: pd.Series({
+                    "Tendance": "croissante" if group["Emploi/Population"].iloc[-1] > group["Emploi/Population"].iloc[0] else "décroissante",
+                    "Variation": (group["Emploi/Population"].iloc[-1] - group["Emploi/Population"].iloc[0]) / group["Emploi/Population"].iloc[0] * 100,
+                    "Annee_max": group.loc[group["Emploi/Population"].idxmax(), year_col],
+                    "Valeur_max": group["Emploi/Population"].max(),
+                }))
+                .reset_index()
             )
-            # Show the interactive plot using Streamlit
-            st.plotly_chart(fig)
-        #La source des données
-        st.write("Source:Données issues de ILOSTAT")
-        plot_employment_scatter_interactive(data_africa_select_pays_age)
+
+            # Génération du commentaire
+            commentaire_text = f"### Analyse des tendances pour {country} :\n\n"
+            for _, row in stats.iterrows():
+                tendance = row["Tendance"]
+                variation = row["Variation"]
+                categorie = row["Catégorie"]
+                annee_max = int(row["Annee_max"])
+                valeur_max = row["Valeur_max"]
+
+                commentaire_text += (
+                    f"- **{categorie}** : tendance {tendance} avec une variation de {variation:.2f}%.\n"
+                    f" Le ratio emploi/population active a été le plus élevé en {annee_max} avec une valeur de {valeur_max:.2f}.\n"
+                )
+
+                # Ajout d'explications adaptées
+                if tendance == "décroissante":
+                    if "Femmes" in categorie:
+                        commentaire_text += (
+                        f" La population active de sexe feminin croît probablement plus vite que les emplois des femmes ({select_pays}).\n"
+                    )
+                    elif "Hommes" in categorie:
+                        commentaire_text += (
+                        f" La population des Hommes en activité croît probablement plus vite que les emplois des hommes ({select_pays}).\n")
+                    elif "15-24ans" and "Total" in categorie:
+                        commentaire_text += (
+                        f" La population des jeunes  en activité croît probablement plus vite que les emplois des hommes ({select_pays}).\n")
+                
+                    elif "Ratio_emploi/population(15+)" in categorie:
+                        commentaire_text += f"  Ainsi la population active croît plus vite que le nombre d'emploi ({select_pays}).\n"
+
+            
+
+            # Affichage dans Streamlit
+            st.write(commentaire_text)
+
+        commentaire(data_pays, year_col='Annee', country=select_pays)
+
+    ## l'onglet Analyse comparative
 
 
-    with onglets[2]:
-        st.write("## 3.Analyse comparative :Cartographie des pays Africains selon le taux d'emploi")
-        st.write("### 3.1 Apercu général du taux d'emploi")
-        data_africa_pays_age=data_africa_pays[data_africa_pays["Sexe"]=="Total"]
-        data_africa_pays_Total=data_africa_pays_age[data_africa_pays_age["Age"]=="Age (Jeunes, adultes) : 15-64 ans"]
 
-        selected_year=st.selectbox("Sélectionnez une année :", sorted(data_africa_pays_age["Annee"].unique()))
-        # Selection de la couleur
-        color_theme_list = ['blues', 'cividis', 'greens', 'inferno', 'magma', 'plasma', 'reds', 'rainbow', 'turbo', 'viridis']
-        selected_color_theme = st.selectbox('Select a color theme', color_theme_list)
-        ## Selection de l'année
-        df_selected_year=data_africa_pays_Total[data_africa_pays_Total["Annee"]==selected_year]
+    if onglets_selectionnee == "Analyse comparative ↔ 📊":
+        st.write("## 3. Analyse comparative : Cartographie des pays africains selon le niveau d'emploi")
+        st.write("### 3.1 Aperçu général du taux d'emploi")
 
+        selected_color_theme = "blues"
+        annees = data["Annee"].unique()
 
+        # Sélection de l'année via un slider
+        selected_year = st.sidebar.slider(
+            "Sélectionnez une année :",
+            min_value=int(min(annees)),
+            max_value=int(max(annees)),
+            value=int(min(annees)),  # Valeur par défaut
+            step=1
+        )
 
+        # Filtrer les données pour l'année sélectionnée
+        df_selected_year = data[data["Annee"] == selected_year]
 
         def make_choropleth(
-            df_selected_year, 
-            input_id, 
-            input_column, 
-            input_color_theme="red", 
-            source_text="Source: Données officielles", 
-            chart_title="Carte Choroplèthe - Taux d'emploi en Afrique en"+ " " +str(selected_year)
+            df_selected_year,
+            input_id,
+            input_column,
+            input_color_theme="reds",
+            source_text="Source: Données officielles",
+            chart_title="Carte Choroplèthe - Ratio emploi/population active",
         ):
             """
             Crée une carte choroplèthe avec une interface personnalisée en blanc et détecte les pays sans données.
-
-            Args:
-                df_selected_year (pd.DataFrame): Données filtrées pour l'année sélectionnée.
-                input_id (str): Colonne contenant les noms des pays.
-                input_column (str): Colonne contenant les valeurs à afficher (ex. taux d'emploi).
-                input_color_theme (str): Palette de couleurs à utiliser.
-                source_text (str): Texte de la source à afficher en bas de la carte.
-                chart_title (str): Titre de la carte.
-
-            Returns:
-                plotly.graph_objects.Figure: La carte choroplèthe.
             """
-            
             # Vérifier si le DataFrame n'est pas vide
             if df_selected_year.empty or df_selected_year[input_column].isnull().all():
-                st.error("Les données sont insuffisantes pour tracer la carte.")
+                st.error(f"Aucune donnée disponible pour {input_column}.")
                 return None
 
             # Créer la carte choroplèthe
@@ -364,143 +362,84 @@ def dash_taux_emploi():
                 color_continuous_scale=input_color_theme,
                 range_color=(0, max(df_selected_year[input_column])),
                 scope="africa",
-                labels={input_column: 'Taux emploi (%)'}
+                labels={input_column: "Emploi / Population active (%)"},
             )
 
-            # Mise à jour de la mise en page avec un thème blanc
+            # Mise à jour de la mise en page
             choropleth.update_layout(
-                template='plotly_white',  # Thème blanc
-                plot_bgcolor='rgba(255, 255, 255, 1)',  # Couleur blanche pour le fond du graphique
-                paper_bgcolor='rgba(255, 255, 255, 1)',  # Couleur blanche pour l'arrière-plan global
-                margin=dict(l=0, r=0, t=50, b=50),  # Ajustement des marges
-                height=400,  # Hauteur du graphique
+                template="plotly_white",
+                plot_bgcolor="rgba(255, 255, 255, 1)",
+                paper_bgcolor="rgba(255, 255, 255, 1)",
+                margin=dict(l=0, r=0, t=50, b=50),
+                height=400,
                 title=dict(
-                    text=chart_title,  # Titre personnalisé
-                    x=0.5,  # Centrage du titre
-                    xanchor='center',
-                    font=dict(size=16, color='black')  # Couleur et taille du texte du titre
+                    text=chart_title,
+                    x=0.5,
+                    xanchor="center",
+                    font=dict(size=16, color="black"),
                 ),
                 coloraxis_colorbar=dict(
-                    title="Taux d'emploi",
+                    title="Ratio emploi / population",
                     tickvals=[0, max(df_selected_year[input_column]) / 2, max(df_selected_year[input_column])],
                     ticktext=["Bas", "Moyen", "Haut"],
-                    titlefont=dict(size=14, color='black'),
-                    tickfont=dict(color='black')
+                    titlefont=dict(size=14, color="black"),
+                    tickfont=dict(color="black"),
                 ),
                 annotations=[
                     dict(
-                        text=source_text,  # Texte de la source
-                        x=0.5,  # Position horizontale (centré)
-                        y=-0.1,  # Position verticale (en bas, hors de la carte)
-                        showarrow=False,  # Pas de flèche
-                        xref="paper",  # Référence horizontale relative à la mise en page
-                        yref="paper",  # Référence verticale relative à la mise en page
-                        font=dict(size=12, color="black"),  # Style de police
-                        align="center"  # Alignement du texte
+                        text=source_text,
+                        x=0.5,
+                        y=-0.1,
+                        showarrow=False,
+                        xref="paper",
+                        yref="paper",
+                        font=dict(size=12, color="black"),
+                        align="center",
                     )
-                ]
+                ],
             )
 
             return choropleth
 
+        # Carte principale
+        choropleth = make_choropleth(
+            df_selected_year, "Pays", "Ratio_emploi/population(15+)", selected_color_theme
+        )
+        if choropleth:
+            st.plotly_chart(choropleth, use_container_width=True)
 
-        ## Construction de la carte
+        st.write("### 3.2 Analyse des inégalités entre hommes et femmes d'accès à l'emploi")
 
-        choropleth = make_choropleth(df_selected_year, "Region", "Taux_emploi",selected_color_theme)
-        st.plotly_chart(choropleth, use_container_width=True)
-        st.write("Sources:Données issues de ILOSTAT")
-        #heatmap = make_heatmap(df_reshaped, 'year', 'states', 'population', selected_color_theme)
-        #st.altair_chart(heatmap, use_container_width=True)
-
-        st.write("###  3.2 Analyse ds inégalités d'accès à l'emploi selon le sexe")
-        st.write("### 3.2.1 Analyse comparative du taux d'emploi des hommes/Femmes en Afrique")
-        #selected_sexe=st.selectbox("Filtre selon le sexe :",["Masculin","Feminin"])
-        data_africa_pays_age=data_africa_pays[data_africa_pays["Sexe"]=="Masculin"]
-        data_africa_pays_Total=data_africa_pays_age[data_africa_pays_age["Age"]=="Age (Jeunes, adultes) : 15-64 ans"]
-
-        #selected_year=st.selectbox("Sélectionnez une année :", sorted(data_africa_pays_age["Annee"].unique()))
-        # Selection de la couleur
-        #color_theme_list = ['blues', 'cividis', 'greens', 'inferno', 'magma', 'plasma', 'reds', 'rainbow', 'turbo', 'viridis']
-        #selected_color_theme = st.selectbox('Select a color theme', color_theme_list)
-        ## Selection de l'année
-
-        df_selected_year_Hommes=data_africa_pays_Total[data_africa_pays_Total["Annee"]==selected_year]
-
-
-        choropleth_hommes= make_choropleth(df_selected_year_Hommes,
-                                    "Region", 
-                                    "Taux_emploi", 
-                                    selected_color_theme,
-                                    source_text="Données issues de ILOSTAT",
-                                    chart_title="Taux d'emploi des Hommes en "+str(selected_year)
-
-                                    )
-
-
-
-        data_africa_pays_age_Femmes=data_africa_pays[data_africa_pays["Sexe"]=="Feminin"]
-        data_africa_pays_Total_Femmes=data_africa_pays_age_Femmes[data_africa_pays_age_Femmes["Age"]=="Age (Jeunes, adultes) : 15-64 ans"]
-
-        df_selected_year_Femmes=data_africa_pays_Total_Femmes[data_africa_pays_Total_Femmes["Annee"]==selected_year]
-
-
-        ## Cartographie Femmes
-
-        choropleth_femmes= make_choropleth(df_selected_year_Femmes,
-                                    "Region", 
-                                    "Taux_emploi", 
-                                    selected_color_theme,
-                                    source_text="Source:Données issues de ILOSTAT",
-                                    chart_title="Taux d'emploi des Femmes en "+str(selected_year)
-
-                                    )
-
-        st.write("NB:Les pays n'ayant pas de données disponibles dans l'année " +str(selected_year)+ " sont illustrées par le blanc sur les cartes ci dessous" )
-        col = st.columns(2)
-        with col[0]:
-            st.plotly_chart(choropleth_hommes, use_container_width=False)
-        with col[1]:
-            st.plotly_chart(choropleth_femmes, use_container_width=False)
-
-
-        st.write("## 3.2 Inégalité d'accès à l'emploi selon l'âge")
-
-
-
-        data_africa_pays_age1=data_africa_pays[data_africa_pays["Age"]=="Age (Jeunes, adultes) : 15-24 ans"]
-        data_africa_pays_Total_age1=data_africa_pays_age1[data_africa_pays_age1["Sexe"]=="Total"]
-
-        df_selected_year_age1=data_africa_pays_Total_age1[data_africa_pays_Total_age1["Annee"]==selected_year]
-
-        choropleth_age1= make_choropleth(df_selected_year_age1,
-                                    "Region", 
-                                    "Taux_emploi", 
-                                    selected_color_theme,
-                                    source_text="Données issues de ILOSTAT",
-                                    chart_title="Taux d'emploi des jeunes de 15-24 ans en "+str(selected_year)
-
-                                    )
-
-
-
-        st.write("Source:Données issues de ILOSTAT")
-        #selected_color_theme="reds"
-        # Inegalités dans l'accès à l'emploi les jeunes de 25-64 ans
-        data_africa_pays_age2=data_africa_pays[data_africa_pays["Age"]=="Age (Jeunes, adultes) : 25-64 ans"]
-        data_africa_pays_Total_age2=data_africa_pays_age2[data_africa_pays_age2["Sexe"]=="Total"]
-
-        df_selected_year_age2=data_africa_pays_Total_age2[data_africa_pays_Total_age2["Annee"]==selected_year]
-
-        choropleth_age2= make_choropleth(df_selected_year_age2,
-                                    "Region", 
-                                    "Taux_emploi", 
-                                    selected_color_theme,
-                                    source_text="Source:Données issues de ILOSTAT",
-                                    chart_title="Taux d'emploi des jeunes de 25-64ans en "+str(selected_year)
-
-                                    )
+        # Cartes comparatives pour les hommes et les femmes
+        
+        
+        st.write(f"##### Ratio emploi population active "+ str(selected_year))
         col=st.columns(2)
-        with col[0]:
-            st.plotly_chart(choropleth_age1,use_container_width=True)
-        with col[1]:
-            st.plotly_chart(choropleth_age2, use_container_width=True)
+        if col[0]:
+            choropleth_gender = make_choropleth(
+                df_selected_year, "Pays", "Ratio_emploi/population(15+,Hommes)", selected_color_theme, "Sources:calaculs, Banque mondiale", "Cas des hommes"
+            )
+            if choropleth_gender:
+                st.plotly_chart(choropleth_gender, use_container_width=True)
+            choropleth_gender = make_choropleth(
+                df_selected_year, "Pays", "Ratio_emploi/population(15+,Femmes)", selected_color_theme, "Sources:calaculs, Banque mondiale", "Cas des femmes"
+            )
+            if choropleth_gender:
+                st.plotly_chart(choropleth_gender, use_container_width=True)
+
+
+
+
+        st.write(f"##### Ratio emploi population active des jeunes "+ str(selected_year))
+        col=st.columns(2)
+        if col[0]:
+            choropleth_gender = make_choropleth(
+                df_selected_year, "Pays", "Ratio_emploi/population(15-24ans,hommes)", selected_color_theme, "Sources:calaculs, Banque mondiale", "Cas des jeunes hommes"
+            )
+            if choropleth_gender:
+                st.plotly_chart(choropleth_gender, use_container_width=True)
+            choropleth_gender = make_choropleth(
+                df_selected_year, "Pays", "Ratio_emploi/population(15-24ans,femmes)", selected_color_theme, "Sources:calaculs, Banque mondiale", "Cas des jeunes filles"
+            )
+            if choropleth_gender:
+                st.plotly_chart(choropleth_gender, use_container_width=True)

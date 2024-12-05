@@ -7,6 +7,23 @@ logo = Image.open(logo_path)
 
 
 def accueil_load(): 
+    st.markdown("""
+        <style>
+        .stApp {
+            background-color: #eaf6ff; /* Bleu clair inspiré de Stata */
+        }
+        .sidebar .sidebar-content {
+            background-color: #d0e6f5; /* Bleu encore plus clair pour la barre latérale */
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #1f77b4; /* Bleu Stata pour les titres */
+        }
+        .stButton>button {
+            background-color: #1f77b4; /* Boutons Stata */
+            color: white;
+        }
+        </style>
+        """, unsafe_allow_html=True)
     # Titre de l'application
         # Sidebar
     with st.sidebar:
@@ -55,6 +72,7 @@ def accueil_load():
         - **Coup d'oeil sur le chômage:** Des analyses similaires au taux d'emploi sont effectuées sur le taux de chômage
         - **Emploi informel:** Des analyses sur le taux d'emploi informel par région, pays et des analyses comparatives
         - **About us:** Une présentation de tous les membres de la Data Storytellers Team.
+        - **Inégalité dans les postes manageriaux:** Une visualisation des proportions des chefs d'entreprises dans les pays au cours du temps
        """
     )
     st.markdown("---")

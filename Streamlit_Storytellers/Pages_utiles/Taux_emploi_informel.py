@@ -11,7 +11,24 @@ data_path=data_dir('base_streamlit_storytellers.xlsx')
 #pd.read_excel(data_path,sheet_name="Secteur_prof_ais")
 
 
-def dash_sect_informel():           
+def dash_sect_informel():   
+    st.markdown("""
+        <style>
+        .stApp {
+            background-color: #eaf6ff; /* Bleu clair inspiré de Stata */
+        }
+        .sidebar .sidebar-content {
+            background-color: #d0e6f5; /* Bleu encore plus clair pour la barre latérale */
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #1f77b4; /* Bleu Stata pour les titres */
+        }
+        .stButton>button {
+            background-color: #1f77b4; /* Boutons Stata */
+            color: white;
+        }
+        </style>
+        """, unsafe_allow_html=True)        
     st.header("Secteur informel")
 
     st.markdown("""
