@@ -47,4 +47,4 @@ urllib3==2.2.2
 watchdog==4.0.1
 plotly.express
 openpyxl==3.1.2
-
+factor_analyzer
